@@ -13,26 +13,60 @@
 + 2. Декомпозиция задачи
 + 3. Выявить главный алгоритм
 + 4. Проработать алгоритм
-+ 5. БЛОК-СХЕМА
-// 6. Написать код
-// 7. Пока нет тестов - делать тестирование
-// 8. Рефакторинг 
-// 9. push'ите
-
-
++ 5. Создать репозиторий
++ 6. Привязать репозиторий к проекту
++ 5. Составить БЛОК-СХЕМУ
++ 6. Написать самый простой рабочий код
++ 7. Тестировать
++ 8. Апгрейд кода.
++ 9. Тестировать
++ 8. Рефакторинг 
++ 9. Залить репозиторий в гит.
 
 */
 
-string[] text = { "hello", "2", "world", ":-)" };
-string[] result = new string[text.Length];
-int count = 0;
+/*
+Декомпозиция задачи
+1. Создать массив 
+2. Перебрать массив и выявить подходящие
+3. Записать подходящие слова в новый массив
+4. Вывести масив
+*/
 
-for (int i = 0; i < text.Length; i++)
+Console.Clear(); //очищаем консоль
+Console.Write("Введите Ваш текст: "); //просим пользователя ввести текст
+string text = Convert.ToString(Console.ReadLine()); // ввод текста
+string[] words = text.Split(' '); // создаем массив из слов
+string[] result = CountSymbols(words); // результрующий массив заполняющийся из метода подсчета
+
+Console.WriteLine("________________________________________________"); // красота
+Console.WriteLine("строки с количеством символов меньше 3х: ");
+
+PrintArray(result); // обращение к методу вывода массива
+
+string[] CountSymbols(string[] letters) //метод подсчета знаков в слове
 {
-    if (text[i].Length <= 3)
+    int count = 0; // счетчик количества символов
+    string[] result = new string[letters.Length]; //определяем первоначальную длину массива
+
+    for (int i = 0; i < letters.Length; i++) // запись в массив нужных строк
     {
-        result[count] = text[i];
-        Console.WriteLine(result[count]);
-        count++;
+        if (letters[i].Length <= 3) //проверка в какой ячейке меньше 3х символов
+        {
+            result[count] = letters[i];
+            count++;
+        }
     }
+    Array.Resize(ref result, count); // изменяем длину массива
+    return result;
+}
+
+void PrintArray(string[] array) // метод вывода массива
+{
+    Console.Write("[");
+    for (int i = 0; i < array.Length - 1; i++)
+    {
+        Console.Write($"{array[i]}, ");
+    }
+    Console.WriteLine($"{array[array.Length - 1]}]");
 }
